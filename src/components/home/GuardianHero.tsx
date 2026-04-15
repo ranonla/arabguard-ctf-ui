@@ -3,6 +3,7 @@ import { TypeAnimation } from "react-type-animation";
 import { useEffect, useState } from "react";
 import { IoTerminalOutline, IoPulseOutline } from "react-icons/io5";
 import am_othman from "../../assets/am_othman.jpg";
+import { useGoogleAuth } from "./../../hooks/oauth";
 
 const scanline = keyframes`
   0% { transform: translateY(-100%); }
@@ -31,6 +32,7 @@ const typingDots = keyframes`
 
 const GuardianHero = () => {
   const [showText, setShowText] = useState(false);
+  const oauth = useGoogleAuth();
 
 useEffect(() => {
   const timer = setTimeout(() => {
@@ -114,7 +116,7 @@ useEffect(() => {
             ]}
             speed={70}
             style={{ whiteSpace: "pre-line", display: "block", color: "#94a3b8", fontSize: "0.95rem" }}
-            repeat={0}
+            repeat={0} cursor={false}
           />
         
         </Box>
@@ -221,6 +223,7 @@ useEffect(() => {
             borderRadius: "0px",
             clipPath: "polygon(10% 0, 100% 0, 90% 100%, 0 100%)",
           }}
+          onClick={() => oauth()}
         >
           START CHALLENGE
         </Button>
@@ -234,7 +237,7 @@ useEffect(() => {
           <Typography sx={{ fontSize: "0.7rem", color: "#06b6d4", mb: 1, display: "flex", alignItems: "center", gap: 1, letterSpacing: 1 }}>
             <IoTerminalOutline /> LIVE_SECURITY_LOGS
           </Typography>
-          
+
           <Box sx={{ 
             height: "50px", 
             overflow: "hidden", 
