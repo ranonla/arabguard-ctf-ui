@@ -2,8 +2,8 @@ import { Box, Typography, Button, keyframes } from "@mui/material";
 import { TypeAnimation } from "react-type-animation";
 import { useEffect, useState } from "react";
 import { IoTerminalOutline, IoPulseOutline } from "react-icons/io5";
-import am_othman from "../../assets/am_othman.jpg";
-import { useGoogleAuth } from "./../../hooks/oauth";
+import am_othman from "@/assets/am_othman.jpg";
+import { useGoogleAuth } from "@/hooks/useGoogleAuth.ts";
 
 const scanline = keyframes`
   0% { transform: translateY(-100%); }
