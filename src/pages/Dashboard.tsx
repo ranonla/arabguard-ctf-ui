@@ -1,9 +1,6 @@
 import { Box, Typography, Avatar, keyframes } from "@mui/material";
-import Leaderboard from "./Leaderboard";
-import Achievements from "./Achievements";
+import { Leaderboard, Achievements, ListedBots, ProgressBar} from "@/components/dashboard";
 import { useAuth } from "@/hooks/useAuth.ts";
-import { ListedBots } from "./ListedBots";
-import { ProgressBar } from "./PorgressBar";
 import { stats } from "@/constants/dashboardStats";
 
 const blink = keyframes`
@@ -18,8 +15,8 @@ const Dashboard = () => {
       sx={{
         minHeight: "100vh",
         background: `
-          radial-gradient(circle at 20% 20%, rgba(99,102,241,0.08), transparent 40%),
-          linear-gradient(135deg, #111827 0%, #1c2634ff 50%, #030712 100%)
+          radial-gradient(circle at 20% 20%, rgba(27, 29, 109, 0.08), transparent 40%),
+          linear-gradient(135deg, #111827 0%, #0a1a31ff 50%, #030712 100%)
         `,
         color: "#fff",
         px: 3,

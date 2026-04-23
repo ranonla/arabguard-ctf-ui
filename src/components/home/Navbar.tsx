@@ -1,6 +1,5 @@
 import { AppBar, Toolbar, Typography, Box } from "@mui/material";
 import { Link } from "react-router-dom";
-import MainLogo from "./Logo";
 
 const Navbar = () => {
   return (
@@ -26,7 +25,16 @@ const Navbar = () => {
             justifyContent: "center",
           }}
         >
-          <MainLogo />
+          <Box
+          component="img" 
+          src="/logo.svg"
+          alt="ArabGuard logo"
+          sx={{
+            height: {xs: 32, sm: 36, md: 40},
+            ml: 4,
+            mr: 2,
+          }}
+          />
 
           <Typography
             sx={{
