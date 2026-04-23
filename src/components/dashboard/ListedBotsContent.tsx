@@ -1,10 +1,12 @@
 import { Box, Typography } from '@mui/material'
 import { chatbots } from '@/constants/chatbotData';
+import { useNavigate } from 'react-router-dom';
 
 const ListedBotsContent = () => {
   const isMobile = window.innerWidth < 600;
   const radius = isMobile ? 130 : 260;
   const center = isMobile ? 160 : 300;
+  const navigate = useNavigate();
   return (
     <>
       <svg
@@ -79,6 +81,11 @@ const ListedBotsContent = () => {
             }}
           >
             <Box
+              onClick={() => {
+                if (!chatbot.locked) {
+                  navigate(`/dashboard/${chatbot.id}`);
+                }
+              }}
               sx={{
                 width: { xs: "140px", sm: "160px", md: "150px" },
                 height: { xs: "150px", sm: "160px", md: "200px" },
@@ -86,7 +93,7 @@ const ListedBotsContent = () => {
                 p: { xs: 1, md: 2 },
                 position: "relative",
                 overflow: "hidden",
-                cursor: chatbot.locked ? "not-allowed" : "pointer",
+                cursor: chatbot.locked ? "default" : "pointer",
                 background: chatbot.locked
                   ? "rgba(30, 41, 59, 0.4)"
                   : "linear-gradient(145deg, rgba(15,23,42,0.9), rgba(30,41,59,0.7))",
@@ -112,6 +119,7 @@ const ListedBotsContent = () => {
                 gap: 1,
               }}
             >
+
               
               <Box
                 sx={{
