@@ -2,8 +2,10 @@ import { Box, Typography } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import { achievementsData } from "@/constants";
+import { useStats } from "@/context/StatsContext";
 
 const Achievements = () => {
+  const { stats } = useStats();
   
   return (
     <Box
@@ -12,13 +14,15 @@ const Achievements = () => {
         p: 2,
         borderRadius: "10px",
         background: "rgba(25, 32, 61, 0.8)",
+        direction: "rtl",
+        textAlign: "right",
       }}
     >
 
       <Typography
         sx={{
           color: "#06b6d4",
-          mb: 2,
+          mb: 4,
           fontWeight: "bold",
           fontSize: "1.5rem",
           display: "flex",
@@ -27,7 +31,7 @@ const Achievements = () => {
         }}
       >
         <EmojiEventsIcon sx={{ fontSize: 30 }} />
-        Achievements
+        الإنجازات الأمنية
       </Typography>
 
       <Box
@@ -43,6 +47,7 @@ const Achievements = () => {
 
         {achievementsData.map((achievement) => {
           const IconComponent = achievement.icon;
+          const isUnlocked = stats.points >= achievement.requiredPoints;
           return (
             <Box
             key={achievement.id}
@@ -50,13 +55,13 @@ const Achievements = () => {
               position: "relative",
               p: 1.5,
               borderRadius: "8px",
-              border: achievement.unlocked
+              border: isUnlocked
                 ? "2px solid rgba(201, 205, 203, 0.5)"
                 : "2px solid rgba(189, 185, 189, 0.81)",
-              background: achievement.unlocked
+              background: isUnlocked
                 ? "rgba(111, 212, 109, 0.36)"
                 : "rgba(120, 124, 143, 0.6)",
-              opacity: achievement.unlocked ? 1 : 0.5,
+              opacity: isUnlocked ? 1 : 0.5,
               transition: "0.3s",
               width: "100px",
               height: "80px",
@@ -67,7 +72,7 @@ const Achievements = () => {
               alignItems: "center",
             }}
             >
-            {!achievement.unlocked && (
+            {!isUnlocked && (
               <LockIcon
                 sx={{
                   position: "absolute",
