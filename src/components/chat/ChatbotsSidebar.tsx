@@ -1,11 +1,12 @@
 import { Box, Typography, Avatar, Tooltip } from "@mui/material";
-import { chatbots } from "@/constants";
 import { useNavigate } from "react-router-dom";
 import LockIcon from "@mui/icons-material/Lock";
 import SidebarLogo from "../SidebarLogo";
+import { useChatbots } from "../../hooks/useChatbots";
 
 const ChatbotsSidebar = () => {
   const navigate = useNavigate();
+  const {data: chatbots = [] } = useChatbots();
 
   return (
     <Box 
@@ -19,19 +20,15 @@ const ChatbotsSidebar = () => {
         linear-gradient(90deg, rgba(6, 182, 212, 0.05) 1px, transparent 1px)
       `,
       backgroundSize: "50px 50px", 
+      overflowY: "auto",
     }}
     >
       <SidebarLogo/>
 
-      <Typography sx={{ mb: 2, fontWeight: 600 }}>
-        Main Charachters
-      </Typography>
-
       {chatbots.map((bot) => (
-      <Tooltip title= {bot.locked? "Locked" : "Unlocked"} >
+      <Tooltip title= {bot.status=="LOCKED"? "مغلق" : bot.status=="ACTIVE"? "نشط" : "مكتمل"} key={bot.id}>
         <Box
-          key={bot.id}
-          onClick={() => !bot.locked && navigate(`/chatbot/${bot.id}`)}
+          onClick={() => bot.status=="ACTIVE" && navigate(`/chatbot/${bot.id}`)}
           sx={{
             title: "",
             display: "flex",
@@ -39,11 +36,9 @@ const ChatbotsSidebar = () => {
             gap: 2,
             p: 1.5,
             borderRadius: "10px",
-            cursor: bot.locked ? "default" : "pointer",
-            opacity: bot.locked ? 0.5 : 1,
-            "&:hover": {
-              background: bot.locked ? "none" : "#1e293b",
-            },
+            cursor: bot.status==="ACTIVE" ? "pointer" : "default",
+            opacity: bot.status==="LOCKED" ? 0.5 : 1,
+            background: !(bot.status==="ACTIVE") ? "none" : "#1e293b",
           }}
         >
           <Avatar src={bot.avatar} sx={{ width: 40, height: 40}} />
@@ -52,13 +47,13 @@ const ChatbotsSidebar = () => {
             
             <Box>
                 <Typography sx={{ fontSize: "0.9rem", fontWeight: 550 }}>
-                {bot.name}
+                {bot.persona}
                 </Typography>
                 <Typography sx={{ fontSize: "0.8rem", color: "#94a3b8" }}>
-                {bot.description}
+                {bot.persona_desc}
                 </Typography>
             </Box>
-            {bot.locked && (
+            {bot.status === "LOCKED" && (
               <LockIcon sx={{ color: "gray" }} />
             )}
           </Box>
