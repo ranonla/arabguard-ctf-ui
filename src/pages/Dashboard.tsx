@@ -1,15 +1,12 @@
 import { Box, Typography, Avatar, keyframes } from "@mui/material";
 import { Leaderboard, Achievements, ListedBots, ProgressBar} from "@/components/dashboard";
 import { useAuth } from "@/hooks/useAuth.ts";
-import { stats } from "@/constants/dashboardStats";
+import { useStats } from "../context/StatsContext";
 
-const blink = keyframes`
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-`;
 
 const Dashboard = () => {
   const { user } = useAuth();
+  const { nickname } = useStats();
   return (
     <Box
       sx={{
@@ -41,55 +38,30 @@ const Dashboard = () => {
               {user?.name || "Anonymous"}
             </Typography>
             <Typography sx={{ fontSize: "0.7rem", color: "#94a3b8" }}>
-              Initiate
+              {nickname}
             </Typography>
           </Box>
         </Box>
 
-        <Box sx={{
-          display: "flex",
-        }}>
-
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            {stats.map((stat, index) => (
-              <Typography key={index} sx={{ color: "#ab9e9eff", mr: 1 }}>
-                {stat.label}: {stat.value}
-                {index !== stats.length - 1 && " |"}
-              </Typography>
-            ))}
-            <Box sx={{ width: 9, height: 9, bgcolor: "#22c55e", borderRadius: "50%", animation: `${blink} 1s infinite` }} />
-          </Box>
-
-        </Box>
       </Box>
 
       <Box sx={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", mb: 4 }}>
 
         <Box 
           sx={{
-            width: { sm: "100%", md: "60%" },
+            width: { xs: "100%", sm: "100%", md: "60%" },
             display: "flex",
             flexDirection: "column",
             gap: 4,
           }}
         >
           <ProgressBar />
-
-          <Box
-            sx={{
-              position: "relative",
-              width: { sm: "100%", md: "500px" },
-              height: { sm: "100%", md: "500px" },
-              margin: "100px auto",
-            }}
-          >
-            <ListedBots />
-          </Box>
+          <ListedBots />
           
         </Box>
 
         <Box sx={{
-          width: { sm: "100%", md: "25%" },
+          width: { xs: "100%", sm: "100%", md: "25%" },
           display: "flex",
           flexDirection: "column",
           gap: 4,
