@@ -1,0 +1,1 @@
+export { achievementsData } from "./achievementsData";
