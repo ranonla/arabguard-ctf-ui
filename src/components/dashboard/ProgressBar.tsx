@@ -1,7 +1,8 @@
 import { Box, Typography } from "@mui/material";
+import { useStats } from "../../context/StatsContext";
 
 export const ProgressBar = () => {
-  const progress = 60;
+  const { stats, progress } = useStats();
 
   return (
     <Box
@@ -23,38 +24,38 @@ export const ProgressBar = () => {
       >
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Typography sx={{ fontSize: "1rem", color: "#64748b" }}>
-            POINTS
+            النقاط
           </Typography>
           <Typography sx={{ color: "#facc15", fontWeight: 600 }}>
-            1200
+            {stats.points}
           </Typography>
         </Box>
 
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Typography sx={{ fontSize: "1rem", color: "#64748b" }}>
-            COMPLETED LEVELS
+            المراحل المكتملة
           </Typography>
           <Typography sx={{ color: "#6366f1", fontWeight: 600 }}>
-            3
+            {stats.completed_levels}
           </Typography>
         </Box>
 
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Typography sx={{ fontSize: "1rem", color: "#64748b" }}>
-            RANK
+            الترتيب
           </Typography>
           <Typography sx={{ color: "#22c55e", fontWeight: 600 }}>
-            #3
+            #{stats.rank}
           </Typography>
         </Box>
       </Box>
 
       <Box sx={{ display: "flex", justifyContent: "space-between", mb: 0.5 }}>
         <Typography sx={{ fontSize: "0.7rem", color: "#94a3b8" }}>
-          Progress to next level
+          نسبة التقدم
         </Typography>
         <Typography sx={{ fontSize: "0.7rem", color: "#94a3b8" }}>
-          {progress}%
+          {progress.toFixed(0)}%
         </Typography>
       </Box>
 

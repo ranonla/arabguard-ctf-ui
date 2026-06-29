@@ -1,20 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
+import { useLeaderboard } from "../../hooks/useLeaderboard";
 
 const Leaderboard = () => {
-  const players = [
-    { name: "Neo", points: 980 },
-    { name: "Cipher", points: 870 },
-    { name: "Rana (You)", points: 350 },
-    { name: "Ghost", points: 220 },
-    { name: "Ghost", points: 220 },
-    { name: "Ghost", points: 220 },
-    { name: "Ghost", points: 220 },
-    { name: "Ghost", points: 220 },
-    { name: "Ghost", points: 220 },
-    { name: "Ghost", points: 220 },
-
-  ];
+  const { data: players = [] } = useLeaderboard();
 
   const sorted = [...players].sort((a, b) => b.points - a.points);
   return (
@@ -24,11 +13,13 @@ const Leaderboard = () => {
         border: "1px solid rgba(148,163,184,0.2)",
         p: 2,
         borderRadius: "10px",
+        
       }}
     >
-      <Typography sx={{ color: "#06b6d4", mb: 2, fontWeight: "bold", fontSize: "1.5rem", display: "flex", alignItems: "center", gap: 1 }}>
+      <Typography sx={{ color: "#06b6d4", mb: 4, fontWeight: "bold", fontSize: "1.5rem", display: "flex", alignItems: "center", gap: 1, direction: "rtl",
+        textAlign: "right", }}>
         <MilitaryTechIcon sx={{ fontSize: 32 }} />
-        Leaderboard
+        الصدارة
       </Typography>
 
       {sorted.map((player, index) => (
@@ -39,7 +30,7 @@ const Leaderboard = () => {
             justifyContent: "space-between",
             alignItems: "center",
             mb: 1.5,
-            p: 1,
+            p: 2,
             borderRadius: "6px",
             border: "1px solid rgba(99,102,241,0.4)",
             background:
@@ -52,13 +43,12 @@ const Leaderboard = () => {
                 : "transparent",
           }}
         >
-          <Box>
-            <Typography sx={{ fontSize: "0.85rem", fontWeight: "600" }}>
-              #{index + 1} {player.name}
+          <Box sx={{ display: "flex", gap: 0.5, alignItems: "center" }}>
+            <Typography sx={{ fontSize: "1rem", fontWeight: "600"}}>
+              #{index + 1}
             </Typography>
-
-            <Typography sx={{ fontSize: "0.7rem", color: "#94a3b8" }}>
-              initiate
+            <Typography sx={{ fontSize: "0.85rem", fontWeight: "600"}}>
+              {player.name}
             </Typography>
           </Box>
 

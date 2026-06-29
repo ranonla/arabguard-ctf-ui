@@ -3,9 +3,8 @@ import { useEffect, useState } from "react";
 
 const ChatbotModal = ({ open, bot, onClose }) => {
   if (!bot) return null;
-
-  const [displayedText, setDisplayedText] = useState("");
-  const fullText = bot.intro || "Initializing mission... Are you ready?";
+  const [displayedText, setDisplayedText] = useState<string | null>(null);
+  const fullText = bot.persona_desc || "بنجهز التحدي... مستعد؟";
 
   useEffect(() => {
     setDisplayedText("");
@@ -56,12 +55,12 @@ const ChatbotModal = ({ open, bot, onClose }) => {
             border: "1px solid rgba(99,102,241,0.2)",
             color: "#fff",
             display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
           }}
         >
-          <Tooltip title={`${bot.name} chatbot photo`}>
+          <Tooltip title={`${bot.persona} chatbot photo`}>
             <Avatar
               src={bot.avatar}
               sx={{
@@ -76,7 +75,7 @@ const ChatbotModal = ({ open, bot, onClose }) => {
           </Tooltip>
 
           <Typography align="center" sx={{ fontWeight: 700, fontSize: "1.3rem" }}>
-            {bot.name}
+            {bot.persona}
           </Typography>
 
           <Box
@@ -95,9 +94,8 @@ const ChatbotModal = ({ open, bot, onClose }) => {
                 flexDirection: "column",
             }}
           >
-            <Typography sx={{ fontSize: "0.9rem" }}>
+            <Typography sx={{ fontSize: "0.9rem", direction: "rtl", textAlign: "right" }}>
               {displayedText}
-
               <Box
                 component="span"
                 sx={{
@@ -137,7 +135,7 @@ const ChatbotModal = ({ open, bot, onClose }) => {
                 flexDirection: "column",
               }}
             >
-              <Typography sx={{ fontSize: "0.7rem" }}>LEVEL</Typography>
+              <Typography sx={{ fontSize: "0.7rem" }}>المستوى</Typography>
               <Typography sx={{ fontWeight: 600 }}>
                 {bot.level || 1}
               </Typography>
@@ -173,9 +171,11 @@ const ChatbotModal = ({ open, bot, onClose }) => {
                 flexDirection: "column",
               }}
             >
-              <Typography sx={{ fontSize: "0.7rem" }}>TASK</Typography>
+              <Typography sx={{ fontSize: "0.7rem" }}>
+                المهمة
+              </Typography>
               <Typography sx={{ fontSize: "0.75rem", fontWeight: 600 }}>
-                {bot.requiredTask || "Complete mission"}
+                {bot.target || "Complete mission"}
               </Typography>
 
               <Box
@@ -192,7 +192,7 @@ const ChatbotModal = ({ open, bot, onClose }) => {
               />
             </Box>
           </Box>
-          <Tooltip title= "Start Mission">
+          <Tooltip title= "ابدأ المهمة">
             <Button
               fullWidth
               sx={{
@@ -207,7 +207,7 @@ const ChatbotModal = ({ open, bot, onClose }) => {
               }}
               onClick={onClose}
             >
-              Start Mission
+              ابدأ المهمة
             </Button>
           </Tooltip>
         </Box>

@@ -8,8 +8,14 @@ export default defineConfig({
     port: 5173,
     open: true,
     host: true,
-    allowHosts: ["*"],
     allowedHosts: ["monosymmetric-uneuphemistically-marvella.ngrok-free.dev"],
+    proxy: {
+  "/api": {
+    target: "http://localhost:8001",
+    changeOrigin: true,
+    rewrite: (path) => path.replace(/^\/api/, ""),
+  },
+},
 
   },
   plugins: [

@@ -1,9 +1,9 @@
 export type Bot = {
     id: string;
-    name: string;
-    description?: string;
+    persona: string;
+    persona_desc: string;
     avatar: string;
     level: number;
-    requiredTask: string;
-    locked: boolean;
+    status: "ACTIVE" | "COMPLETED" | "LOCKED";
+    target: string,
 };

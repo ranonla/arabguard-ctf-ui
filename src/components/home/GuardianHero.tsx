@@ -2,8 +2,8 @@ import { Box, Typography, Button, keyframes } from "@mui/material";
 import { TypeAnimation } from "react-type-animation";
 import { useEffect, useState } from "react";
 import { IoTerminalOutline, IoPulseOutline } from "react-icons/io5";
-import am_othman from "@/assets/am_othman.jpg";
-import { useGoogleAuth } from "@/hooks/useGoogleAuth.ts";
+import am_othman from "@/assets/avatars/am_othman.jpg";
+import TerminalCard from "../TerminalCard";
 
 const scanline = keyframes`
   0% { transform: translateY(-100%); }
@@ -30,17 +30,15 @@ const typingDots = keyframes`
   40% { opacity: 1; transform: scale(1.3); }
 `;
 
-const GuardianHero = () => {
+const GuardianHero = ({ googleAuth }) => {
   const [showText, setShowText] = useState(false);
-  const oauth = useGoogleAuth();
-
-useEffect(() => {
-  const timer = setTimeout(() => {
-    setShowText(true);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowText(true);
   }, 3000);
-
   return () => clearTimeout(timer);
-}, []);
+  }, []);
+
   return (
     <Box
       sx={{
@@ -82,44 +80,9 @@ useEffect(() => {
         </Typography>
       ))}
 
-      <Box sx={{ display: "flex", justifyContent: "space-between", mt: 4, zIndex: 5, alignItems: "center", px: { xs: 2, sm: 5, md: 10 }, flexDirection: { xs: "column", md: "row" }, gap: { xs: 3, md: 4 }, mb: { xs: 4, md: 12 } }}>
+      <Box sx={{ display: "flex", justifyContent: "space-between", mt: 4, zIndex: 5, alignItems: "center", px: { xs: 2, sm: 0, md: 0, lg: 10 }, flexDirection: { xs: "column", md: "row" }, gap: { xs: 3, md: 4 }, mb: { xs: 4, md: 12 } }}>
         
-        <Box
-          sx={{
-            width: { xs: "100%", md: "40%" },
-            height: { xs: "200px", md: "280px" },
-            background: "rgba(2, 6, 23, 0.9)",
-            backdropFilter: "blur(8px)",
-            border: "1px solid rgba(6, 182, 212, 0.3)",
-            borderRadius: "8px",
-            p: 3,
-            fontFamily: "'JetBrains Mono', monospace",
-            boxShadow: "0 0 30px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(6, 182, 212, 0.1)",
-          }}
-        >
-          <Box sx={{ display: "flex", gap: 1, mb: 2 }}>
-            <Box sx={{ width: 8, height: 8, borderRadius: "50%", background: "#ff5f56" }} />
-            <Box sx={{ width: 8, height: 8, borderRadius: "50%", background: "#ffbd2e" }} />
-            <Box sx={{ width: 8, height: 8, borderRadius: "50%", background: "#27c93f" }} />
-          </Box>
-
-          <Typography sx={{ color: "#06b6d4", fontSize: "0.85rem", mb: 1, opacity: 0.8 }}>
-            [SYS_INIT] Remote connection established...
-          </Typography>
-          
-          <TypeAnimation
-            sequence={[
-              "ssh admin@guardian_node_01\n", 100,
-              "ssh admin@guardian_node_01\nPassword: ••••••••••\n", 100,
-              "ssh admin@guardian_node_01\nPassword: ••••••••••\nAccess Granted.\n", 100,
-              "ssh admin@guardian_node_01\nPassword: ••••••••••\nAccess Granted.\nScanning for vulnerabilities...",
-            ]}
-            speed={70}
-            style={{ whiteSpace: "pre-line", display: "block", color: "#94a3b8", fontSize: "0.95rem" }}
-            repeat={0} cursor={false}
-          />
-        
-        </Box>
+        <TerminalCard variant="home" autoPlay={true} />
 
         <Box sx={{ width: { xs: "100%", md: "30%" }, display: "flex", flexDirection: "column", alignItems: "flex-end", gap: { xs: 1, md: 2 } }}>
 
@@ -173,7 +136,7 @@ useEffect(() => {
               </Box>
             ) : (
               <TypeAnimation
-                sequence={["You won't find that easy..."]}
+                sequence={["فاكرها سهلة؟ جرب كده..."]}
                 speed={50}
                 cursor={true}
                 repeat={0}
@@ -181,6 +144,10 @@ useEffect(() => {
                   color: "#e2e8f0",
                   fontFamily: "monospace",
                   fontSize: "0.9rem",
+                  direction: "rtl",
+                  textAlign: "right",
+                  display: "block",
+                  width: "100%",
                 }}
               />
             )}
@@ -205,17 +172,17 @@ useEffect(() => {
             filter: "drop-shadow(0 0 15px rgba(99, 102, 241, 0.3))",
           }}
         >
-          Can you break our guardians?
+          تقدر تضحك على عم عثمان؟
         </Typography>
 
         <Typography sx={{ color: "#94a3b8", mb: 4, fontSize: "1.1rem", maxWidth: "600px", mx: "auto" }}>
-          Decrypt the noise, bypass the firewalls, and secure the flag.
+          فك الشفرات، عدّي الحماية، واكتشف السر
         </Typography>
 
         <Button
           variant="contained"
           sx={{
-            px: { xs: 3, sm: 5, md: 8 },
+            px: { xs: 3, sm: 5, md: 12 },
             py: 2,
             background: "linear-gradient(45deg, #6366f1, #06b6d4)",
             fontSize: { xs: "1.1rem", sm: "1.1rem", md: "1.5rem" },
@@ -223,9 +190,9 @@ useEffect(() => {
             borderRadius: "0px",
             clipPath: "polygon(10% 0, 100% 0, 90% 100%, 0 100%)",
           }}
-          onClick={() => oauth()}
+          onClick={() => googleAuth.login()}
         >
-          START CHALLENGE
+          ابدأ التحدي
         </Button>
 
       </Box>
